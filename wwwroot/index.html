@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="https://cdn.autodesk.io/favicon.ico">
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.css">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="./extensions/CameraRotation/contents/main.css">
+
+    <title>BCD CDE: Simple Viewer</title>
+</head>
+
+
+<body>
+    <div id="header">
+        <span class="title">BCD - Simple Viewer</span>
+        <select name="models" id="models"></select>
+        <button id="upload" title="Upload New Model">Upload</button>
+        <input style="display: none" type="file" id="input">
+    </div>
+    <!-- <div id="container"> -->
+        <div id="preview"></div>
+    <!-- </div> -->
+    <div id="overlay"></div>
+    <img id="myImage" src="./img/Asset 2 xxhdpi backdrop.png" alt="Backdrop">
+    <img id="myLogo" src="./img/Asset 2 xxhdpi.gif" alt="BCD Limted">
+
+    <script>
+        // adjust scale of viewer UI in response to postMessage from parent html
+        window.addEventListener('message', function(event) {
+            if (event.origin !== 'https://bcd-hkapa-demo.great-site.net') return;            
+            const { width, height } = event.data;            
+            console.log('got it!!  Width:', width , 'Height: ', height);
+
+            if (width && height) {
+                // Calculate the scale based on the new dimensions
+                const scaleX = width / 860; // Original width of preview
+                // const scaleY = height / 480; // Original height of preview
+                const scale = Math.min(scaleX, 1); // Maintain aspect ratio
+
+                if (scale < 0.8){
+                    // Create a global style rule
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        .adsk-viewing-viewer .viewcube {
+                            transform: scale(0.5);
+                        }
+                        .adsk-viewing-viewer .adsk-button {
+                            transform: scale(0.5);
+                            transform-origin: center center;
+                            width: 20px;
+                            height: 20px;
+                            padding: 2px 2px 2px 2px;
+                            margin: 2px 2px 2px 2px;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                } else {
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        .adsk-viewing-viewer .viewcube {
+                            transform: scale(1);
+                        }
+                        .adsk-viewing-viewer .adsk-button {
+                            transform: scale(1);
+                            transform-origin: center center;
+                            width: 24px;
+                            height: 24px;
+                            padding: 6px 6px 6px 6px;
+                            margin: 4px 4px 4px 4px;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+        });
+
+        // show logo intially
+        const myImage = document.getElementById('myImage');
+        myImage.classList.add('show'); //show the image
+        const myTimeout = setTimeout(() => myLogo.classList.add('show'), 500);
+    </script>
+
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.js"></script>
+    <script src="/main.js" type="module"></script>
+</body>
+
+</html>

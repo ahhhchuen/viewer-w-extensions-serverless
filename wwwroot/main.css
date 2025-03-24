@@ -1,0 +1,91 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: ArtifaktElement;
+}
+
+#header, #preview, #overlay {
+    position: absolute;
+    width: 100%;
+}
+
+#header {
+    height: 3em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#preview, #overlay {
+    top: 3em;
+    bottom: 0;
+}
+
+#overlay {
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    display: none;
+}
+
+#myImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%); /* Center the image */
+    z-index: 10; /* Ensure it's above the viewer */
+    width: 700px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Prevents interaction */
+    transition: opacity 1s ease, visibility 0.5s ease; /* Transition effects */
+}
+
+#myImage.show {
+    opacity: 1; /* Visible */
+    visibility: visible; /* Allows interaction */
+}
+
+#myLogo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -35%); /* Center the image */
+    z-index: 11; /* Ensure it's above the viewer */
+    width: 450px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Prevents interaction */
+    transition: opacity 1s ease, visibility 0.5s ease; /* Transition effects */
+}
+
+#myLogo.show {
+    opacity: 1; /* Visible */
+    visibility: visible; /* Allows interaction */
+}
+
+#overlay > .notification {
+    margin: auto;
+    padding: 1em;
+    max-width: 50%;
+    background: white;
+}
+
+#header > * {
+    height: 2em;
+    margin: 0 0.5em;
+    font-size: 1em;
+    font-family: ArtifaktElement;
+}
+
+#header .title {
+    flex: 1 0 auto;
+    height: auto;
+}
+
+#models {
+    flex: 0 1 auto;
+    min-width: 2em;
+}
