@@ -34,6 +34,8 @@ export function initViewer(container) {
                             ,
                             'CameraRotation'                            
                             ,
+                            'Autodesk.NPR'
+                            ,
                             'Autodesk.VisualClusters'
                 ]      
             };
@@ -41,8 +43,34 @@ export function initViewer(container) {
             viewer.start();
 
             viewer.setDisplayEdges(true);
+            viewer.setLightPreset(1);
+            viewer.setQualityLevel(false, true);            
+            viewer.setEnvMapBackground(false);
+            viewer.setTheme('light-theme');
 
-            viewer.setTheme('light-theme');    
+            ////////////////////////////            
+
+            viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, () => {
+                // console.log('GEOMETRY_LOADED_EVENT!!!!!!!!!!!!!!!!');
+                // viewer.setBackgroundColor(0, 0, 0, 0, 0, 0);
+                // viewer.setSelectionColor(new THREE.Color(0.4, 0.6, 1));
+                viewer.setDisplayEdges(true);
+                viewer.setLightPreset(1);
+                viewer.setQualityLevel(false, true);
+                viewer.setEnvMapBackground(false);
+                viewer.setTheme('light-theme');
+
+                // const npr=viewer.getExtension('Autodesk.NPR');   ///poast processing shading
+                // npr.setParameter("style", "edging");
+                // npr.setParameter("edges", true);                
+                // ext.setParameter("brightness", 0.5);
+
+                const viewcube=viewer.getExtension('Autodesk.ViewCubeUi');
+                viewcube.displayViewCube(false,true);                
+            });
+
+            ////////////////////////////
+
             resolve(viewer);
         });
     });
@@ -58,7 +86,5 @@ export function loadModel(viewer, urn) {
         }
         viewer.setLightPreset(0);
         Autodesk.Viewing.Document.load('urn:' + urn, onDocumentLoadSuccess, onDocumentLoadFailure);
-
-        
     });
 }
