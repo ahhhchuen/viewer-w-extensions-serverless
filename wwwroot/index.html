@@ -78,6 +78,16 @@
             }
         });
 
+        // ramdom choose logo
+        var choice = Math.floor(Math.random() * 2) + 1;
+        if (choice==1){
+            var newImageSrc = './img/Asset 2 xxhdpi.gif';
+
+        }else{
+            var newImageSrc = './img/Asset 2A xxhdpi.gif';
+        }
+        document.getElementById('myLogo').src = newImageSrc;
+
         // show logo intially
         const myImage = document.getElementById('myImage');
         myImage.classList.add('show'); //show the image

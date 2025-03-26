@@ -19,6 +19,16 @@ function hideImage() {
 
 function showImage() {
     myImage.classList.add('show'); // Add class to trigger transition
+
+    // ramdom choose logo
+    var choice = Math.floor(Math.random() * 2) + 1;
+    if (choice==1){
+        var newImageSrc = './img/Asset 2 xxhdpi.gif';
+    }else{
+        var newImageSrc = './img/Asset 2A xxhdpi.gif';
+    }
+    document.getElementById('myLogo').src = newImageSrc;
+
     const myTimeout = setTimeout(()=> myLogo.classList.add('show'),500);
 }
 
